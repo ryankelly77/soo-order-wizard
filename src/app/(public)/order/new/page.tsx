@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   useOrderWizardStore,
@@ -20,6 +20,14 @@ import { FloatingOrderSummary } from '@/components/order/floating-order-summary'
 import { DeliveryForm } from '@/components/order/delivery-form';
 
 export default function NewOrderPage() {
+  return (
+    <Suspense fallback={<div className="wizard-layout"><div className="loading-spinner" /></div>}>
+      <NewOrderPageContent />
+    </Suspense>
+  );
+}
+
+function NewOrderPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const {
