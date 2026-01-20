@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Order - Event Details | Sense of Occasion</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES - Brand Design Tokens
+       ============================================ */
+    :root {
+      --soo-bg-light: #f7f7f7;
+      --soo-bg-white: #ffffff;
+      --soo-red: #c84c38;
+      --soo-red-hover: #b54330;
+      --soo-dark: #0b262d;
+      --soo-dark-lighter: #163842;
+      --soo-black: #000000;
+      --soo-gray: #d7d7d7;
+      --soo-gray-light: #e8e8e8;
+      --soo-gray-dark: #555555;
+      --soo-cream: #fdfaf3;
+      --soo-text: #2d2e2a;
+      --soo-text-muted: #555555;
+      --soo-text-accent: #eefbfa;
+      --soo-gold: #c9a962;
+      --soo-success: #4CAF50;
+      --soo-warning: #FF9800;
+      --soo-error: #f44336;
+      
+      --font-bodoni: 'Bodoni Moda', serif;
+      --font-montserrat: 'Montserrat', sans-serif;
+      
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+      
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+      --transition-slow: 400ms ease;
+    }
+
+    /* ============================================
+       BASE RESET & STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-montserrat);
+      color: var(--soo-text);
+      background: var(--soo-bg-light);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-bodoni);
+      color: var(--soo-dark);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .wizard-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    .container-narrow {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .wizard-header {
+      background: var(--soo-dark);
+      padding: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .wizard-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: var(--font-bodoni);
+      font-size: 22px;
+      color: var(--soo-bg-white);
+      text-decoration: none;
+      font-style: italic;
+      letter-spacing: 0.5px;
+    }
+
+    .logo span {
+      color: var(--soo-red);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: var(--font-montserrat);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+      border-radius: 6px;
+    }
+
+    .btn-header:hover {
+      color: var(--soo-bg-white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .btn-header svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ============================================
+       PROGRESS INDICATOR
+       ============================================ */
+    .wizard-progress {
+      background: var(--soo-bg-white);
+      padding: 24px 0;
+      border-bottom: 1px solid var(--soo-gray-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: var(--soo-gray);
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: all var(--transition-normal);
+      background: var(--soo-bg-white);
+      border: 2px solid var(--soo-gray);
+      color: var(--soo-text-muted);
+    }
+
+    .step-item.active .step-circle {
+      background: var(--soo-red);
+      border-color: var(--soo-red);
+      color: var(--soo-bg-white);
+      box-shadow: 0 0 0 4px rgba(200, 76, 56, 0.15);
+    }
+
+    .step-item.complete .step-circle {
+      background: var(--soo-dark);
+      border-color: var(--soo-dark);
+      color: var(--soo-bg-white);
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--soo-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .step-item.active .step-label {
+      color: var(--soo-dark);
+      font-weight: 600;
+    }
+
+    .step-item.complete .step-label {
+      color: var(--soo-dark);
+    }
+
+    /* ============================================
+       MAIN CONTENT
+       ============================================ */
+    .wizard-content {
+      flex: 1;
+      padding: 48px 0 120px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+      color: var(--soo-dark);
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--soo-text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       FORM STYLES
+       ============================================ */
+    .form-card {
+      background: var(--soo-bg-white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .form-section {
+      margin-bottom: 36px;
+    }
+
+    .form-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-section-title {
+      font-family: var(--font-bodoni);
+      font-size: 20px;
+      color: var(--soo-dark);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-row.three-col {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--soo-text-muted);
+      margin-bottom: 8px;
+    }
+
+    .form-label .required {
+      color: var(--soo-red);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: var(--font-montserrat);
+      font-size: 15px;
+      color: var(--soo-text);
+      background: var(--soo-bg-white);
+      border: 1.5px solid var(--soo-gray);
+      border-radius: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .form-input:hover {
+      border-color: var(--soo-gray-dark);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--soo-red);
+      box-shadow: 0 0 0 3px rgba(200, 76, 56, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: #999;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: var(--soo-text-muted);
+      margin-top: 6px;
+    }
+
+    /* Select Styling */
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 44px;
+      cursor: pointer;
+    }
+
+    /* Number Input with Controls */
+    .number-input-wrapper {
+      display: flex;
+      align-items: stretch;
+      border: 1.5px solid var(--soo-gray);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all var(--transition-fast);
+    }
+
+    .number-input-wrapper:hover {
+      border-color: var(--soo-gray-dark);
+    }
+
+    .number-input-wrapper:focus-within {
+      border-color: var(--soo-red);
+      box-shadow: 0 0 0 3px rgba(200, 76, 56, 0.1);
+    }
+
+    .number-input-wrapper input {
+      flex: 1;
+      border: none;
+      padding: 14px 16px;
+      font-family: var(--font-montserrat);
+      font-size: 15px;
+      text-align: center;
+      color: var(--soo-text);
+      min-width: 0;
+    }
+
+    .number-input-wrapper input:focus {
+      outline: none;
+    }
+
+    .number-btn {
+      width: 48px;
+      background: var(--soo-bg-light);
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--soo-text-muted);
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .number-btn:hover {
+      background: var(--soo-gray);
+      color: var(--soo-dark);
+    }
+
+    .number-btn:active {
+      background: var(--soo-gray-dark);
+      color: var(--soo-bg-white);
+    }
+
+    /* Time Picker Enhancement */
+    .time-input-wrapper {
+      position: relative;
+    }
+
+    .time-input-wrapper::after {
+      content: '🕐';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .time-input-wrapper .form-input {
+      padding-right: 48px;
+    }
+
+    /* Date Picker Enhancement */
+    .date-input-wrapper {
+      position: relative;
+    }
+
+    .date-input-wrapper::after {
+      content: '📅';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      pointer-events: none;
+    }
+
+    .date-input-wrapper .form-input {
+      padding-right: 48px;
+    }
+
+    /* ============================================
+       INFO CALLOUT
+       ============================================ */
+    .info-callout {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--soo-cream) 0%, #f5ede0 100%);
+      border-radius: 12px;
+      border-left: 4px solid var(--soo-gold);
+      margin-top: 32px;
+    }
+
+    .info-callout-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .info-callout-content h4 {
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--soo-dark);
+      margin-bottom: 4px;
+    }
+
+    .info-callout-content p {
+      font-size: 13px;
+      color: var(--soo-text-muted);
+      line-height: 1.5;
+    }
+
+    /* ============================================
+       FOOTER / NAVIGATION
+       ============================================ */
+    .wizard-footer {
+      background: var(--soo-bg-white);
+      border-top: 1px solid var(--soo-gray-light);
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    .wizard-footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .btn-primary {
+      background: var(--soo-red);
+      color: var(--soo-bg-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--soo-red-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-primary:disabled {
+      background: var(--soo-gray);
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--soo-text-muted);
+      padding: 14px 24px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--soo-bg-light);
+      color: var(--soo-dark);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Progress Summary */
+    .progress-summary {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .progress-summary-item {
+      text-align: center;
+    }
+
+    .progress-summary-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--soo-text-muted);
+      margin-bottom: 2px;
+    }
+
+    .progress-summary-value {
+      font-family: var(--font-bodoni);
+      font-size: 18px;
+      color: var(--soo-dark);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-card {
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      .step-indicator {
+        overflow-x: auto;
+        padding-bottom: 10px;
+      }
+
+      .step-label {
+        font-size: 9px;
+        max-width: 60px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row.three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .form-card {
+        padding: 24px;
+        border-radius: 12px;
+      }
+
+      .progress-summary {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wizard-layout">
+    <!-- Header -->
+    <header class="wizard-header">
+      <div class="container">
+        <a href="#" class="logo"><em>Sense</em> of <span>Occasion</span></a>
+        <div class="header-actions">
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+            </svg>
+            Save Draft
+          </button>
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            Exit
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="wizard-progress">
+      <div class="container">
+        <div class="step-indicator">
+          <div class="step-item active">
+            <div class="step-circle">1</div>
+            <span class="step-label">Event Details</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">2</div>
+            <span class="step-label">Breakfast</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">3</div>
+            <span class="step-label">Lunch</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <span class="step-label">Snacks & Drinks</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">5</div>
+            <span class="step-label">Delivery</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">6</div>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="wizard-content">
+      <div class="container-narrow">
+        <div class="page-header">
+          <h1>Event Details</h1>
+          <p>Tell us about your upcoming event so we can help you plan the perfect catering experience.</p>
+        </div>
+
+        <div class="form-card">
+          <!-- Event Information -->
+          <div class="form-section">
+            <h3 class="form-section-title">Event Information</h3>
+            
+            <div class="form-group">
+              <label class="form-label">Event Name <span class="required">*</span></label>
+              <input type="text" class="form-input" placeholder="e.g., Q1 Strategy Meeting, Board Presentation">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Event Date <span class="required">*</span></label>
+                <div class="date-input-wrapper">
+                  <input type="date" class="form-input" min="2026-01-20">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Event Time <span class="required">*</span></label>
+                <div class="time-input-wrapper">
+                  <input type="time" class="form-input" value="09:00">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendees -->
+          <div class="form-section">
+            <h3 class="form-section-title">Attendees</h3>
+            
+            <div class="form-group">
+              <label class="form-label">Number of Attendees <span class="required">*</span></label>
+              <div class="number-input-wrapper">
+                <button class="number-btn" type="button">−</button>
+                <input type="number" value="12" min="1" max="100">
+                <button class="number-btn" type="button">+</button>
+              </div>
+              <p class="form-hint">Minimum 1, maximum 100 attendees per order</p>
+            </div>
+          </div>
+
+          <!-- Event Type -->
+          <div class="form-section">
+            <h3 class="form-section-title">Event Type</h3>
+            
+            <div class="form-group">
+              <label class="form-label">What type of event is this?</label>
+              <select class="form-input form-select">
+                <option value="">Select event type...</option>
+                <option value="board-meeting">Board Meeting</option>
+                <option value="client-presentation">Client Presentation</option>
+                <option value="team-meeting">Team Meeting</option>
+                <option value="training-session">Training Session</option>
+                <option value="workshop">Workshop</option>
+                <option value="celebration">Celebration / Milestone</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Special Requirements or Notes</label>
+              <textarea class="form-input" rows="3" placeholder="Any dietary restrictions for the group, special setup requirements, or other notes..."></textarea>
+            </div>
+          </div>
+
+          <!-- Info Callout -->
+          <div class="info-callout">
+            <span class="info-callout-icon">💡</span>
+            <div class="info-callout-content">
+              <h4>Shareable Lunch Links</h4>
+              <p>After completing your order, you'll receive a unique link to share with your attendees. Each person can then select their own personalized lunch preferences.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="wizard-footer">
+      <div class="container">
+        <button class="btn btn-ghost" disabled>
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Previous
+        </button>
+
+        <div class="progress-summary">
+          <div class="progress-summary-item">
+            <div class="progress-summary-label">Step</div>
+            <div class="progress-summary-value">1 of 6</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary">
+          Continue to Breakfast
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

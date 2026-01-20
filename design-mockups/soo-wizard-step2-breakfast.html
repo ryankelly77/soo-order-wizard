@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Order - Breakfast Selection | Sense of Occasion</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --soo-bg-light: #f7f7f7;
+      --soo-bg-white: #ffffff;
+      --soo-red: #c84c38;
+      --soo-red-hover: #b54330;
+      --soo-dark: #0b262d;
+      --soo-dark-lighter: #163842;
+      --soo-black: #000000;
+      --soo-gray: #d7d7d7;
+      --soo-gray-light: #e8e8e8;
+      --soo-gray-dark: #555555;
+      --soo-cream: #fdfaf3;
+      --soo-text: #2d2e2a;
+      --soo-text-muted: #555555;
+      --soo-text-accent: #eefbfa;
+      --soo-gold: #c9a962;
+      --soo-success: #4CAF50;
+      
+      --font-bodoni: 'Bodoni Moda', serif;
+      --font-montserrat: 'Montserrat', sans-serif;
+      
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+      
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-montserrat);
+      color: var(--soo-text);
+      background: var(--soo-bg-light);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-bodoni);
+      color: var(--soo-dark);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .wizard-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .wizard-header {
+      background: var(--soo-dark);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .wizard-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: var(--font-bodoni);
+      font-size: 22px;
+      color: var(--soo-bg-white);
+      text-decoration: none;
+      font-style: italic;
+    }
+
+    .logo span {
+      color: var(--soo-red);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: var(--font-montserrat);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+      border-radius: 6px;
+    }
+
+    .btn-header:hover {
+      color: var(--soo-bg-white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .btn-header svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ============================================
+       PROGRESS INDICATOR
+       ============================================ */
+    .wizard-progress {
+      background: var(--soo-bg-white);
+      padding: 24px 0;
+      border-bottom: 1px solid var(--soo-gray-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: var(--soo-gray);
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: all var(--transition-normal);
+      background: var(--soo-bg-white);
+      border: 2px solid var(--soo-gray);
+      color: var(--soo-text-muted);
+    }
+
+    .step-item.active .step-circle {
+      background: var(--soo-red);
+      border-color: var(--soo-red);
+      color: var(--soo-bg-white);
+      box-shadow: 0 0 0 4px rgba(200, 76, 56, 0.15);
+    }
+
+    .step-item.complete .step-circle {
+      background: var(--soo-dark);
+      border-color: var(--soo-dark);
+      color: var(--soo-bg-white);
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--soo-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .step-item.active .step-label {
+      color: var(--soo-dark);
+      font-weight: 600;
+    }
+
+    .step-item.complete .step-label {
+      color: var(--soo-dark);
+    }
+
+    /* ============================================
+       MAIN CONTENT
+       ============================================ */
+    .wizard-content {
+      flex: 1;
+      padding: 48px 0 140px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--soo-text-muted);
+      max-width: 550px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       PACKAGE GRID
+       ============================================ */
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .package-card {
+      background: var(--soo-bg-white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .package-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .package-card.selected {
+      border-color: var(--soo-red);
+      box-shadow: 0 0 0 4px rgba(200, 76, 56, 0.1);
+    }
+
+    .package-card.popular::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: 16px;
+      right: -32px;
+      background: var(--soo-gold);
+      color: var(--soo-bg-white);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 6px 40px;
+      transform: rotate(45deg);
+      z-index: 10;
+    }
+
+    .package-image {
+      height: 200px;
+      background: linear-gradient(145deg, var(--soo-cream) 0%, #e8ddd0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-image-placeholder {
+      font-size: 72px;
+      opacity: 0.8;
+    }
+
+    .package-card.selected .package-image::after {
+      content: '✓';
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      width: 36px;
+      height: 36px;
+      background: var(--soo-red);
+      color: var(--soo-bg-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: var(--shadow-md);
+    }
+
+    .package-content {
+      padding: 24px;
+    }
+
+    .package-name {
+      font-family: var(--font-bodoni);
+      font-size: 24px;
+      color: var(--soo-dark);
+      margin-bottom: 8px;
+    }
+
+    .package-description {
+      font-size: 14px;
+      color: var(--soo-text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .package-includes {
+      margin-bottom: 20px;
+    }
+
+    .package-includes-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--soo-text-muted);
+      margin-bottom: 10px;
+    }
+
+    .package-includes-list {
+      list-style: none;
+    }
+
+    .package-includes-list li {
+      font-size: 13px;
+      color: var(--soo-text);
+      padding: 6px 0;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .package-includes-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--soo-success);
+      font-weight: bold;
+    }
+
+    .package-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid var(--soo-gray-light);
+    }
+
+    .package-price {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .package-price-amount {
+      font-family: var(--font-bodoni);
+      font-size: 28px;
+      color: var(--soo-red);
+    }
+
+    .package-price-unit {
+      font-size: 12px;
+      color: var(--soo-text-muted);
+    }
+
+    .package-dietary {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dietary-badge {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 5px 10px;
+      background: var(--soo-cream);
+      color: var(--soo-text-muted);
+      border-radius: 4px;
+    }
+
+    /* ============================================
+       OPTIONAL ADDONS
+       ============================================ */
+    .addons-section {
+      margin-top: 48px;
+    }
+
+    .addons-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .addons-title {
+      font-family: var(--font-bodoni);
+      font-size: 24px;
+      color: var(--soo-dark);
+    }
+
+    .addons-subtitle {
+      font-size: 14px;
+      color: var(--soo-text-muted);
+    }
+
+    .addon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .addon-card {
+      background: var(--soo-bg-white);
+      border-radius: 12px;
+      padding: 20px;
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .addon-card:hover {
+      border-color: var(--soo-gray);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .addon-card.selected {
+      border-color: var(--soo-red);
+      background: rgba(200, 76, 56, 0.03);
+    }
+
+    .addon-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .addon-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--soo-dark);
+      margin-bottom: 4px;
+    }
+
+    .addon-price {
+      font-size: 13px;
+      color: var(--soo-red);
+      font-weight: 500;
+    }
+
+    /* ============================================
+       ORDER SUMMARY SIDEBAR
+       ============================================ */
+    .order-summary-float {
+      position: fixed;
+      top: 160px;
+      right: 24px;
+      width: 280px;
+      background: var(--soo-bg-white);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-lg);
+      z-index: 50;
+    }
+
+    .summary-title {
+      font-family: var(--font-bodoni);
+      font-size: 18px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .summary-event {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .summary-event-name {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .summary-event-details {
+      font-size: 12px;
+      color: var(--soo-text-muted);
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .summary-line.total {
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 2px solid var(--soo-dark);
+    }
+
+    .summary-line .value {
+      font-weight: 500;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .wizard-footer {
+      background: var(--soo-bg-white);
+      border-top: 1px solid var(--soo-gray-light);
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    .wizard-footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .btn-primary {
+      background: var(--soo-red);
+      color: var(--soo-bg-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--soo-red-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--soo-text-muted);
+      padding: 14px 24px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--soo-bg-light);
+      color: var(--soo-dark);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .progress-summary {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .progress-summary-item {
+      text-align: center;
+    }
+
+    .progress-summary-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--soo-text-muted);
+      margin-bottom: 2px;
+    }
+
+    .progress-summary-value {
+      font-family: var(--font-bodoni);
+      font-size: 18px;
+      color: var(--soo-dark);
+    }
+
+    /* ============================================
+       ANIMATIONS
+       ============================================ */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .package-card {
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .package-card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .package-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 1200px) {
+      .order-summary-float {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .package-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .addon-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .addon-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .progress-summary {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wizard-layout">
+    <!-- Header -->
+    <header class="wizard-header">
+      <div class="container">
+        <a href="#" class="logo"><em>Sense</em> of <span>Occasion</span></a>
+        <div class="header-actions">
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+            </svg>
+            Save Draft
+          </button>
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            Exit
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="wizard-progress">
+      <div class="container">
+        <div class="step-indicator">
+          <div class="step-item complete">
+            <div class="step-circle">✓</div>
+            <span class="step-label">Event Details</span>
+          </div>
+          <div class="step-item active">
+            <div class="step-circle">2</div>
+            <span class="step-label">Breakfast</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">3</div>
+            <span class="step-label">Lunch</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <span class="step-label">Snacks & Drinks</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">5</div>
+            <span class="step-label">Delivery</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">6</div>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="wizard-content">
+      <div class="container">
+        <div class="page-header">
+          <h1>Select a Breakfast Package</h1>
+          <p>Start your meeting right with our curated breakfast experiences. All packages include premium coffee and tea service.</p>
+        </div>
+
+        <!-- Package Selection Grid -->
+        <div class="package-grid">
+          <!-- Continental Classic -->
+          <div class="package-card">
+            <div class="package-image">
+              <span class="package-image-placeholder">🥐</span>
+            </div>
+            <div class="package-content">
+              <h3 class="package-name">Continental Classic</h3>
+              <p class="package-description">A timeless selection of European-inspired pastries and fresh fruits to start your day.</p>
+              
+              <div class="package-includes">
+                <div class="package-includes-title">Includes</div>
+                <ul class="package-includes-list">
+                  <li>Assorted croissants & Danish pastries</li>
+                  <li>Fresh seasonal fruit display</li>
+                  <li>Artisan breads with butter & preserves</li>
+                  <li>Greek yogurt parfaits</li>
+                  <li>Premium coffee & tea service</li>
+                </ul>
+              </div>
+
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="package-price-amount">$18.95</span>
+                  <span class="package-price-unit">per person</span>
+                </div>
+                <div class="package-dietary">
+                  <span class="dietary-badge">Vegetarian</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Executive Brunch - Selected & Popular -->
+          <div class="package-card selected popular">
+            <div class="package-image">
+              <span class="package-image-placeholder">🍳</span>
+            </div>
+            <div class="package-content">
+              <h3 class="package-name">Executive Brunch</h3>
+              <p class="package-description">An elevated experience featuring hot items and premium ingredients for discerning palates.</p>
+              
+              <div class="package-includes">
+                <div class="package-includes-title">Includes</div>
+                <ul class="package-includes-list">
+                  <li>Eggs Benedict with hollandaise</li>
+                  <li>Smoked salmon display</li>
+                  <li>Quiche Lorraine & spinach quiche</li>
+                  <li>French pastry assortment</li>
+                  <li>Fresh fruit & berries</li>
+                  <li>Premium coffee & tea service</li>
+                </ul>
+              </div>
+
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="package-price-amount">$32.95</span>
+                  <span class="package-price-unit">per person</span>
+                </div>
+                <div class="package-dietary">
+                  <span class="dietary-badge">GF Options</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Health & Vitality -->
+          <div class="package-card">
+            <div class="package-image">
+              <span class="package-image-placeholder">🥗</span>
+            </div>
+            <div class="package-content">
+              <h3 class="package-name">Health & Vitality</h3>
+              <p class="package-description">Fuel your team with nutrient-rich options designed for energy and focus.</p>
+              
+              <div class="package-includes">
+                <div class="package-includes-title">Includes</div>
+                <ul class="package-includes-list">
+                  <li>Açaí bowls with granola</li>
+                  <li>Avocado toast bar</li>
+                  <li>Fresh-pressed juice trio</li>
+                  <li>Protein power bites</li>
+                  <li>Overnight oats selection</li>
+                  <li>Herbal tea & cold brew</li>
+                </ul>
+              </div>
+
+              <div class="package-footer">
+                <div class="package-price">
+                  <span class="package-price-amount">$26.95</span>
+                  <span class="package-price-unit">per person</span>
+                </div>
+                <div class="package-dietary">
+                  <span class="dietary-badge">Vegan</span>
+                  <span class="dietary-badge">GF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional Add-ons -->
+        <div class="addons-section">
+          <div class="addons-header">
+            <div>
+              <h2 class="addons-title">Optional Add-ons</h2>
+              <p class="addons-subtitle">Enhance your breakfast experience</p>
+            </div>
+          </div>
+
+          <div class="addon-grid">
+            <div class="addon-card selected">
+              <div class="addon-icon">☕</div>
+              <div class="addon-name">Espresso Bar</div>
+              <div class="addon-price">+$4.95/person</div>
+            </div>
+            <div class="addon-card">
+              <div class="addon-icon">🥤</div>
+              <div class="addon-name">Fresh Juice Station</div>
+              <div class="addon-price">+$5.95/person</div>
+            </div>
+            <div class="addon-card">
+              <div class="addon-icon">🥓</div>
+              <div class="addon-name">Bacon & Sausage</div>
+              <div class="addon-price">+$6.95/person</div>
+            </div>
+            <div class="addon-card">
+              <div class="addon-icon">🧇</div>
+              <div class="addon-name">Waffle Station</div>
+              <div class="addon-price">+$7.95/person</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating Order Summary -->
+      <div class="order-summary-float">
+        <h3 class="summary-title">Order Summary</h3>
+        
+        <div class="summary-event">
+          <div class="summary-event-name">Q1 Strategy Meeting</div>
+          <div class="summary-event-details">Feb 15, 2026 • 12 attendees</div>
+        </div>
+
+        <div class="summary-line">
+          <span>Executive Brunch × 12</span>
+          <span class="value">$395.40</span>
+        </div>
+        <div class="summary-line">
+          <span>Espresso Bar × 12</span>
+          <span class="value">$59.40</span>
+        </div>
+        <div class="summary-line total">
+          <span>Subtotal</span>
+          <span class="value">$454.80</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="wizard-footer">
+      <div class="container">
+        <button class="btn btn-ghost">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Previous
+        </button>
+
+        <div class="progress-summary">
+          <div class="progress-summary-item">
+            <div class="progress-summary-label">Attendees</div>
+            <div class="progress-summary-value">12</div>
+          </div>
+          <div class="progress-summary-item">
+            <div class="progress-summary-label">Subtotal</div>
+            <div class="progress-summary-value">$454.80</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary">
+          Continue to Lunch
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>

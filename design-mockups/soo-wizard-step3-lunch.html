@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Order - Lunch Selection | Sense of Occasion</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       CSS VARIABLES
+       ============================================ */
+    :root {
+      --soo-bg-light: #f7f7f7;
+      --soo-bg-white: #ffffff;
+      --soo-red: #c84c38;
+      --soo-red-hover: #b54330;
+      --soo-dark: #0b262d;
+      --soo-gray: #d7d7d7;
+      --soo-gray-light: #e8e8e8;
+      --soo-gray-dark: #555555;
+      --soo-cream: #fdfaf3;
+      --soo-text: #2d2e2a;
+      --soo-text-muted: #555555;
+      --soo-gold: #c9a962;
+      --soo-success: #4CAF50;
+      --soo-info: #2196F3;
+      
+      --font-bodoni: 'Bodoni Moda', serif;
+      --font-montserrat: 'Montserrat', sans-serif;
+      
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+      
+      --transition-fast: 150ms ease;
+      --transition-normal: 300ms ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-montserrat);
+      color: var(--soo-text);
+      background: var(--soo-bg-light);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-bodoni);
+      color: var(--soo-dark);
+      font-weight: 400;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    .wizard-header {
+      background: var(--soo-dark);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .wizard-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: var(--font-bodoni);
+      font-size: 22px;
+      color: var(--soo-bg-white);
+      text-decoration: none;
+      font-style: italic;
+    }
+
+    .logo span {
+      color: var(--soo-red);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      font-family: var(--font-montserrat);
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-header:hover {
+      color: var(--soo-bg-white);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .btn-header svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ============================================
+       PROGRESS
+       ============================================ */
+    .wizard-progress {
+      background: var(--soo-bg-white);
+      padding: 24px 0;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: var(--soo-gray);
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 10px;
+      background: var(--soo-bg-white);
+      border: 2px solid var(--soo-gray);
+      color: var(--soo-text-muted);
+      transition: all var(--transition-normal);
+    }
+
+    .step-item.active .step-circle {
+      background: var(--soo-red);
+      border-color: var(--soo-red);
+      color: var(--soo-bg-white);
+      box-shadow: 0 0 0 4px rgba(200, 76, 56, 0.15);
+    }
+
+    .step-item.complete .step-circle {
+      background: var(--soo-dark);
+      border-color: var(--soo-dark);
+      color: var(--soo-bg-white);
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--soo-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+
+    .step-item.active .step-label,
+    .step-item.complete .step-label {
+      color: var(--soo-dark);
+    }
+
+    .step-item.active .step-label {
+      font-weight: 600;
+    }
+
+    /* ============================================
+       MAIN CONTENT
+       ============================================ */
+    .wizard-content {
+      flex: 1;
+      padding: 48px 0 140px;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--soo-text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       INFO BANNER
+       ============================================ */
+    .info-banner {
+      background: linear-gradient(135deg, var(--soo-dark) 0%, #163842 100%);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--soo-bg-white);
+    }
+
+    .info-banner-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .info-banner-content h3 {
+      color: var(--soo-bg-white);
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .info-banner-content p {
+      font-size: 14px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    .info-banner-action {
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .btn-outline-light {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: var(--font-montserrat);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--soo-bg-white);
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-decoration: none;
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--soo-bg-white);
+    }
+
+    /* ============================================
+       ATTENDEE LIST
+       ============================================ */
+    .attendee-section {
+      background: var(--soo-bg-white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .attendee-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .attendee-header h2 {
+      font-size: 24px;
+    }
+
+    .attendee-count {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .count-badge {
+      background: var(--soo-cream);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--soo-dark);
+    }
+
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      font-family: var(--font-montserrat);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--soo-red);
+      background: transparent;
+      border: 2px solid var(--soo-red);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-add:hover {
+      background: var(--soo-red);
+      color: var(--soo-bg-white);
+    }
+
+    /* Attendee List */
+    .attendee-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .attendee-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--soo-bg-light);
+      border-radius: 12px;
+      transition: all var(--transition-fast);
+    }
+
+    .attendee-row:hover {
+      background: var(--soo-cream);
+    }
+
+    .attendee-number {
+      width: 36px;
+      height: 36px;
+      background: var(--soo-bg-white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--soo-dark);
+      border: 2px solid var(--soo-gray);
+    }
+
+    .attendee-row.filled .attendee-number {
+      background: var(--soo-success);
+      border-color: var(--soo-success);
+      color: var(--soo-bg-white);
+    }
+
+    .attendee-input {
+      padding: 12px 16px;
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      border: 1.5px solid var(--soo-gray);
+      border-radius: 8px;
+      background: var(--soo-bg-white);
+      transition: all var(--transition-fast);
+    }
+
+    .attendee-input:focus {
+      outline: none;
+      border-color: var(--soo-red);
+      box-shadow: 0 0 0 3px rgba(200, 76, 56, 0.1);
+    }
+
+    .attendee-input::placeholder {
+      color: #999;
+    }
+
+    .attendee-input.filled {
+      border-color: var(--soo-success);
+      background: rgba(76, 175, 80, 0.05);
+    }
+
+    .attendee-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--soo-bg-white);
+      border: 1px solid var(--soo-gray);
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--soo-text-muted);
+      transition: all var(--transition-fast);
+    }
+
+    .btn-icon:hover {
+      border-color: var(--soo-gray-dark);
+      color: var(--soo-dark);
+    }
+
+    .btn-icon.delete:hover {
+      border-color: #f44336;
+      color: #f44336;
+      background: rgba(244, 67, 54, 0.05);
+    }
+
+    .btn-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Status Indicator */
+    .status-text {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-text.pending {
+      color: var(--soo-text-muted);
+    }
+
+    .status-text.complete {
+      color: var(--soo-success);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ============================================
+       LUNCH MENU PREVIEW
+       ============================================ */
+    .menu-preview {
+      margin-top: 40px;
+    }
+
+    .menu-preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .menu-preview-header h3 {
+      font-size: 22px;
+    }
+
+    .menu-preview-note {
+      font-size: 13px;
+      color: var(--soo-text-muted);
+    }
+
+    .menu-categories {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .menu-category-card {
+      background: var(--soo-bg-white);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--soo-gray-light);
+    }
+
+    .menu-category-title {
+      font-family: var(--font-montserrat);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--soo-red);
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .menu-item-preview {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--soo-gray-light);
+    }
+
+    .menu-item-preview:last-child {
+      border-bottom: none;
+    }
+
+    .menu-item-name {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--soo-dark);
+      margin-bottom: 2px;
+    }
+
+    .menu-item-desc {
+      font-size: 12px;
+      color: var(--soo-text-muted);
+    }
+
+    .menu-item-tags {
+      display: flex;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .menu-tag {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 3px 6px;
+      background: var(--soo-cream);
+      color: var(--soo-text-muted);
+      border-radius: 3px;
+    }
+
+    /* ============================================
+       PRICING INFO
+       ============================================ */
+    .pricing-info {
+      margin-top: 32px;
+      padding: 20px 24px;
+      background: var(--soo-cream);
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pricing-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pricing-icon {
+      font-size: 24px;
+    }
+
+    .pricing-text h4 {
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .pricing-text p {
+      font-size: 13px;
+      color: var(--soo-text-muted);
+    }
+
+    .pricing-amount {
+      font-family: var(--font-bodoni);
+      font-size: 28px;
+      color: var(--soo-dark);
+    }
+
+    .pricing-amount span {
+      font-size: 14px;
+      font-family: var(--font-montserrat);
+      color: var(--soo-text-muted);
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .wizard-footer {
+      background: var(--soo-bg-white);
+      border-top: 1px solid var(--soo-gray-light);
+      padding: 20px 0;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+    }
+
+    .wizard-footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 32px;
+      font-family: var(--font-montserrat);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+    }
+
+    .btn-primary {
+      background: var(--soo-red);
+      color: var(--soo-bg-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--soo-red-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--soo-text-muted);
+      padding: 14px 24px;
+    }
+
+    .btn-ghost:hover {
+      background: var(--soo-bg-light);
+      color: var(--soo-dark);
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .progress-summary {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .progress-summary-item {
+      text-align: center;
+    }
+
+    .progress-summary-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--soo-text-muted);
+      margin-bottom: 2px;
+    }
+
+    .progress-summary-value {
+      font-family: var(--font-bodoni);
+      font-size: 18px;
+      color: var(--soo-dark);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 900px) {
+      .info-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .info-banner-action {
+        margin-left: 0;
+        margin-top: 16px;
+      }
+
+      .attendee-row {
+        grid-template-columns: 36px 1fr;
+        gap: 12px;
+      }
+
+      .attendee-row > *:nth-child(3),
+      .attendee-row > *:nth-child(4) {
+        grid-column: 2;
+      }
+
+      .menu-categories {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page-header h1 {
+        font-size: 32px;
+      }
+
+      .progress-summary {
+        display: none;
+      }
+
+      .attendee-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wizard-layout">
+    <!-- Header -->
+    <header class="wizard-header">
+      <div class="container">
+        <a href="#" class="logo"><em>Sense</em> of <span>Occasion</span></a>
+        <div class="header-actions">
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+            </svg>
+            Save Draft
+          </button>
+          <button class="btn-header">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+            Exit
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="wizard-progress">
+      <div class="container">
+        <div class="step-indicator">
+          <div class="step-item complete">
+            <div class="step-circle">✓</div>
+            <span class="step-label">Event Details</span>
+          </div>
+          <div class="step-item complete">
+            <div class="step-circle">✓</div>
+            <span class="step-label">Breakfast</span>
+          </div>
+          <div class="step-item active">
+            <div class="step-circle">3</div>
+            <span class="step-label">Lunch</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">4</div>
+            <span class="step-label">Snacks & Drinks</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">5</div>
+            <span class="step-label">Delivery</span>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">6</div>
+            <span class="step-label">Payment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="wizard-content">
+      <div class="container">
+        <div class="page-header">
+          <h1>Lunch Selections</h1>
+          <p>Add your attendees below. After completing your order, each person will receive a link to select their personalized lunch preferences.</p>
+        </div>
+
+        <!-- Info Banner -->
+        <div class="info-banner">
+          <div class="info-banner-icon">🔗</div>
+          <div class="info-banner-content">
+            <h3>Personalized Selection Links</h3>
+            <p>Each attendee will receive a unique link to choose their own entrée, side, and salad. You can track who has completed their selections in real-time from your dashboard.</p>
+          </div>
+          <div class="info-banner-action">
+            <a href="#" class="btn-outline-light">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              How It Works
+            </a>
+          </div>
+        </div>
+
+        <!-- Attendee List Section -->
+        <div class="attendee-section">
+          <div class="attendee-header">
+            <h2>Attendee List</h2>
+            <div class="attendee-count">
+              <span class="count-badge">12 attendees</span>
+              <button class="btn-add">
+                <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                </svg>
+                Add Attendee
+              </button>
+            </div>
+          </div>
+
+          <div class="attendee-list">
+            <!-- Filled Row -->
+            <div class="attendee-row filled">
+              <div class="attendee-number">1</div>
+              <input type="text" class="attendee-input filled" value="Sarah Johnson" placeholder="Attendee name">
+              <input type="email" class="attendee-input filled" value="sarah.johnson@company.com" placeholder="Email address">
+              <div class="attendee-actions">
+                <button class="btn-icon delete">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Filled Row -->
+            <div class="attendee-row filled">
+              <div class="attendee-number">2</div>
+              <input type="text" class="attendee-input filled" value="Michael Chen" placeholder="Attendee name">
+              <input type="email" class="attendee-input filled" value="m.chen@company.com" placeholder="Email address">
+              <div class="attendee-actions">
+                <button class="btn-icon delete">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Filled Row -->
+            <div class="attendee-row filled">
+              <div class="attendee-number">3</div>
+              <input type="text" class="attendee-input filled" value="Emily Rodriguez" placeholder="Attendee name">
+              <input type="email" class="attendee-input filled" value="emily.r@company.com" placeholder="Email address">
+              <div class="attendee-actions">
+                <button class="btn-icon delete">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Empty Row -->
+            <div class="attendee-row">
+              <div class="attendee-number">4</div>
+              <input type="text" class="attendee-input" placeholder="Attendee name">
+              <input type="email" class="attendee-input" placeholder="Email address (optional)">
+              <div class="attendee-actions">
+                <button class="btn-icon delete">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- More empty rows abbreviated for demo -->
+            <div class="attendee-row">
+              <div class="attendee-number">5</div>
+              <input type="text" class="attendee-input" placeholder="Attendee name">
+              <input type="email" class="attendee-input" placeholder="Email address (optional)">
+              <div class="attendee-actions">
+                <button class="btn-icon delete">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Collapsed indicator -->
+            <div style="text-align: center; padding: 16px; color: var(--soo-text-muted); font-size: 13px;">
+              + 7 more attendees to add
+            </div>
+          </div>
+
+          <!-- Pricing Info -->
+          <div class="pricing-info">
+            <div class="pricing-left">
+              <span class="pricing-icon">🍽️</span>
+              <div class="pricing-text">
+                <h4>Individual Lunch Selections</h4>
+                <p>Each attendee selects entrée + side + salad</p>
+              </div>
+            </div>
+            <div class="pricing-amount">
+              $29.95 <span>/ person</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lunch Menu Preview -->
+        <div class="menu-preview">
+          <div class="menu-preview-header">
+            <h3>Available Menu Options</h3>
+            <span class="menu-preview-note">Attendees will choose from these options</span>
+          </div>
+
+          <div class="menu-categories">
+            <!-- Entrées -->
+            <div class="menu-category-card">
+              <div class="menu-category-title">Entrées</div>
+              
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Grilled Atlantic Salmon</div>
+                <div class="menu-item-desc">Herb-crusted with lemon caper butter</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Chicken Marsala</div>
+                <div class="menu-item-desc">Pan-seared with mushroom sauce</div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Filet Mignon</div>
+                <div class="menu-item-desc">6oz center-cut with red wine reduction</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Vegetable Wellington</div>
+                <div class="menu-item-desc">Roasted vegetables in puff pastry</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">V</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sides -->
+            <div class="menu-category-card">
+              <div class="menu-category-title">Sides</div>
+              
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Garlic Mashed Potatoes</div>
+                <div class="menu-item-desc">Yukon gold with roasted garlic</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                  <span class="menu-tag">V</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Wild Rice Pilaf</div>
+                <div class="menu-item-desc">Aromatic with herbs & almonds</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">V</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Roasted Vegetables</div>
+                <div class="menu-item-desc">Seasonal market selection</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                  <span class="menu-tag">V</span>
+                  <span class="menu-tag">VG</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Truffle Mac & Cheese</div>
+                <div class="menu-item-desc">Three-cheese blend with truffle oil</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">V</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Salads -->
+            <div class="menu-category-card">
+              <div class="menu-category-title">Salads</div>
+              
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Classic Caesar</div>
+                <div class="menu-item-desc">Romaine, parmesan, house croutons</div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Mixed Greens</div>
+                <div class="menu-item-desc">Spring mix, cherry tomatoes, balsamic</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                  <span class="menu-tag">V</span>
+                  <span class="menu-tag">VG</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Wedge Salad</div>
+                <div class="menu-item-desc">Iceberg, blue cheese, bacon bits</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                </div>
+              </div>
+
+              <div class="menu-item-preview">
+                <div class="menu-item-name">Spinach & Strawberry</div>
+                <div class="menu-item-desc">Baby spinach, strawberries, pecans</div>
+                <div class="menu-item-tags">
+                  <span class="menu-tag">GF</span>
+                  <span class="menu-tag">V</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="wizard-footer">
+      <div class="container">
+        <button class="btn btn-ghost">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Previous
+        </button>
+
+        <div class="progress-summary">
+          <div class="progress-summary-item">
+            <div class="progress-summary-label">Attendees</div>
+            <div class="progress-summary-value">3 / 12</div>
+          </div>
+          <div class="progress-summary-item">
+            <div class="progress-summary-label">Lunch Total</div>
+            <div class="progress-summary-value">$359.40</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary">
+          Continue to Snacks
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
