@@ -1,0 +1,366 @@
+.content {
+  padding: 48px 0 140px;
+}
+
+.pageHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pageHeader h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.pageHeader p {
+  font-size: 16px;
+  color: var(--soo-text-muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.mainColumn {
+  min-width: 0;
+}
+
+.section {
+  margin-bottom: 48px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+/* Package Cards */
+.packageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.packageCard {
+  background: var(--soo-bg-white);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.packageCard:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.packageCard.selected {
+  border-color: var(--soo-red);
+  box-shadow: 0 0 0 4px rgba(200, 76, 56, 0.1);
+}
+
+.popularBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--soo-red);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.checkmark {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 28px;
+  height: 28px;
+  background: var(--soo-red);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.packageImage {
+  height: 140px;
+  background: var(--soo-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePlaceholder {
+  font-size: 48px;
+}
+
+.packageContent {
+  padding: 20px;
+}
+
+.packageName {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.packageDesc {
+  font-size: 13px;
+  color: var(--soo-text-muted);
+  margin-bottom: 16px;
+}
+
+.packageItems {
+  list-style: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--soo-gray-light);
+}
+
+.packageItems li {
+  font-size: 12px;
+  color: var(--soo-text-muted);
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+
+.packageItems li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--soo-success);
+  font-size: 10px;
+}
+
+.packageFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.packagePrice {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceAmount {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 24px;
+  color: var(--soo-dark);
+}
+
+.pricePer {
+  font-size: 11px;
+  color: var(--soo-text-muted);
+}
+
+.packageBadges {
+  display: flex;
+  gap: 6px;
+}
+
+/* Add-ons Grid */
+.addonsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.addonCard {
+  background: var(--soo-bg-white);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.addonCard:hover {
+  border-color: var(--soo-gray);
+}
+
+.addonCard.selected {
+  border-color: var(--soo-red);
+  background: rgba(200, 76, 56, 0.03);
+}
+
+.addonIcon {
+  font-size: 32px;
+}
+
+.addonInfo {
+  flex: 1;
+}
+
+.addonName {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.addonPrice {
+  font-size: 12px;
+  color: var(--soo-text-muted);
+}
+
+.addonCheck {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--soo-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--soo-text-muted);
+}
+
+.addonCard.selected .addonCheck {
+  background: var(--soo-red);
+  color: white;
+}
+
+/* Sidebar */
+.sidebar {
+  position: sticky;
+  top: 140px;
+}
+
+.summaryCard {
+  background: var(--soo-bg-white);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+}
+
+.summaryTitle {
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--soo-gray-light);
+}
+
+.summaryEvent {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--soo-gray-light);
+}
+
+.summaryEventIcon {
+  width: 44px;
+  height: 44px;
+  background: var(--soo-cream);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.summaryEvent h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.summaryEvent p {
+  font-size: 12px;
+  color: var(--soo-text-muted);
+}
+
+.summaryItems {
+  margin-bottom: 20px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--soo-gray-light);
+}
+
+.summaryItem:last-child {
+  border-bottom: none;
+}
+
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 2px solid var(--soo-dark);
+}
+
+.totalAmount {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 28px;
+  color: var(--soo-dark);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    order: -1;
+  }
+
+  .summaryCard {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: 900px) {
+  .packageGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .addonsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 32px 0 120px;
+  }
+
+  .pageHeader h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .addonsGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,61 @@
+.footer {
+  background: var(--soo-bg-white);
+  border-top: 1px solid var(--soo-gray-light);
+  padding: 20px 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary {
+  display: flex;
+  gap: 32px;
+}
+
+.summaryItem {
+  text-align: center;
+}
+
+.summaryLabel {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--soo-text-muted);
+  margin-bottom: 2px;
+}
+
+.summaryValue {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 18px;
+  color: var(--soo-dark);
+}
+
+.prevBtn,
+.nextBtn {
+  min-width: 140px;
+}
+
+.nextBtn {
+  min-width: 160px;
+}
+
+@media (max-width: 768px) {
+  .summary {
+    display: none;
+  }
+  
+  .prevBtn,
+  .nextBtn {
+    min-width: auto;
+    padding: 12px 20px;
+  }
+}
